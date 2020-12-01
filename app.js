@@ -23,6 +23,11 @@ app.get("/api/place/:id", async (req, res) => {
       point = (scoreSum / scoreCnt).toFixed(1).toString();
     }
 
+    const reviewCnt =
+      axiosRes.data.blogReview.blogReviewCnt === undefined
+        ? 0
+        : axiosRes.data.blogReview.blogReviewCnt;
+
     const region =
       axiosRes.data.basicInfo.address.region.newaddrfullname === undefined
         ? ""
@@ -45,7 +50,7 @@ app.get("/api/place/:id", async (req, res) => {
       address: address,
       scoreCnt: axiosRes.data.basicInfo.feedback.scorecnt,
       point: point,
-      blogReviewCnt: axiosRes.data.blogReview.blogReviewCnt,
+      blogReviewCnt: reviewCnt,
       x: axiosRes.data.findway.x,
       y: axiosRes.data.findway.y,
     };
