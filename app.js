@@ -44,8 +44,8 @@ app.get("/api/place/:id", (req, res) => {
           scoreCnt: axiosRes.data.basicInfo.feedback.scorecnt,
           point: point,
           blogReviewCnt: axiosRes.data.blogReview.blogReviewCnt,
-          x: 528047,
-          y: 1121370,
+          x: axiosRes.data.findway.x,
+          y: axiosRes.data.findway.y,
         };
         res.status(200).send(JSON.stringify(restaurantDetailResponse)).end();
       });
