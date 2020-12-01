@@ -9,7 +9,7 @@ async function getRestuarntDetail(req) {
 }
 
 app.get("/", (req, res) => {
-  res.status(200).send("Hello, Fucking Depromeet ver 1.0.0").end();
+  res.status(200).send("Hello, Fucking Depromeet ver 1.0.1").end();
 });
 app.get("/api/place/:id", async (req, res) => {
   try {
@@ -23,10 +23,12 @@ app.get("/api/place/:id", async (req, res) => {
       point = (scoreSum / scoreCnt).toFixed(1).toString();
     }
 
+    console.log(axiosRes.data);
+
     const reviewCnt =
-      axiosRes.data.blogReview.blogReviewCnt === undefined
+      axiosRes.data.blogReview.blogrvwcnt === undefined
         ? 0
-        : axiosRes.data.blogReview.blogReviewCnt;
+        : axiosRes.data.blogReview.blogrvwcnt;
 
     const region =
       axiosRes.data.basicInfo.address.region.newaddrfullname === undefined
