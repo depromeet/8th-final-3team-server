@@ -9,7 +9,7 @@ async function getRestuarntDetail(req) {
 }
 
 app.get("/", (req, res) => {
-  res.status(200).send("Hello, Fucking Depromeet ver 1.0.1").end();
+  res.status(200).send("Hello, Fucking Depromeet ver 1.0.4").end();
 });
 app.get("/api/place/:id", async (req, res) => {
   try {
@@ -23,9 +23,8 @@ app.get("/api/place/:id", async (req, res) => {
       point = (scoreSum / scoreCnt).toFixed(1).toString();
     }
 
-    console.log(axiosRes.data);
-
     const reviewCnt =
+      axiosRes.data.blogReview === undefined ||
       axiosRes.data.blogReview.blogrvwcnt === undefined
         ? 0
         : axiosRes.data.blogReview.blogrvwcnt;
@@ -45,16 +44,19 @@ app.get("/api/place/:id", async (req, res) => {
 
     const address = `${region}${newAddress}${addressDetail}`;
 
+    const x = Number(req.query.x);
+    const y = Number(req.query.y);
+
     const restaurantDetailResponse = {
       placeId: axiosRes.data.basicInfo.cid,
       title: axiosRes.data.basicInfo.placenamefull,
       photo: axiosRes.data.basicInfo.mainphotourl,
-      address: address,
+      address,
       scoreCnt: axiosRes.data.basicInfo.feedback.scorecnt,
-      point: point,
-      blogReviewCnt: reviewCnt,
-      x: axiosRes.data.findway.x,
-      y: axiosRes.data.findway.y,
+      point,
+      reviewCnt,
+      x,
+      y,
     };
     res.status(200).send(JSON.stringify(restaurantDetailResponse)).end();
   } catch (err) {
